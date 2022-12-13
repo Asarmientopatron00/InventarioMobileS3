@@ -10,6 +10,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // import { ROUTES } from '../data/routes';
 import { usePermissions } from '../shared/hooks/usePermissions';
 import Hello from '../screens/Hello';
+import Receive from '../screens/Receive';
 
 LogBox.ignoreAllLogs();
 
@@ -18,24 +19,6 @@ const Drawer = createDrawerNavigator();
 export const MainNavigator = () => {
   const {user} = useContext(AuthContext);
   const {top} = useSafeAreaInsets();
-
-  const getPermisos = (permissions, ruta) => {
-    let permisos = [];
-    permissions.forEach((permiso) => {
-      if(permiso.nombre === 'Aplicación Móvil'){
-        permiso.opciones.forEach((opcion) => {
-          if(opcion.url===ruta){
-            opcion.permisos.forEach((opcPermiso, index) => {
-              if(opcPermiso.permitido){
-                permisos[index] = opcPermiso.titulo;
-              }
-            })
-          }
-        })
-      }
-    })
-    return {permisos, cantidad: permisos.length};
-  }
 
   if(!user) { 
     return (
@@ -53,26 +36,37 @@ export const MainNavigator = () => {
       screenOptions={{
         header: (props) => <Header {...props}/>
       }}
-      // initialRouteName={
-      //   getPermisos(user.permisos,ROUTES.ApproveQuoteScreen).cantidad > 0 ? 
-      //     ROUTES.ApproveQuoteScreen:
-      //     getPermisos(user.permisos,ROUTES.AcceptServiceScreen).cantidad > 0 ? 
-      //       ROUTES.AcceptServiceScreen:
-      //       '/unauthorized'}
-      initialRouteName={'/hello'}
+      initialRouteName={'/'}
     >
       {/* <Drawer.Screen name={ROUTES.ApproveQuoteScreen} component={ApproveQuoteScreen} options={{unmountOnBlur: true}}/>
       <Drawer.Screen name={ROUTES.AcceptServiceScreen} component={AcceptServiceScreen} options={{unmountOnBlur: true}} />
-      <Drawer.Screen name={ROUTES.RegisterHoursScreen} component={RegisterHoursScreen} options={{unmountOnBlur: true}} />
-      <Drawer.Screen name={'/unauthorized'} component={UnauthorizedScreen} options={{unmountOnBlur: true}} /> */}
+      <Drawer.Screen name={ROUTES.RegisterHoursScreen} component={RegisterHoursScreen} options={{unmountOnBlur: true}} /> */}
       <Drawer.Screen name='/' component={Hello} options={{unmountOnBlur: true}}/>
+      <Drawer.Screen name={'/receive'} component={Receive} options={{unmountOnBlur: true}} />
     </Drawer.Navigator>
   );
 }
 
+const opciones = [
+  {
+    id: 100, 
+    icon: 'cloud-circle', 
+    name: 'Estado', 
+    url: '/',
+    permissions: [3,4,6]
+  },
+  {
+    id: 1, 
+    icon: 'arrow-redo-outline', 
+    name: 'Recibir', 
+    url: '/receive',
+    permissions: [3,4,6]
+  }
+]
+
 const Menu = ({navigation, permissions}) => {
   const {theme: {palette}} = useContext(ThemeContext);
-  const {opciones} = usePermissions(permissions);
+  // const {opciones} = usePermissions(permissions);
 
   return (
     <DrawerContentScrollView
@@ -164,7 +158,7 @@ const Header = ({navigation}) => {
                   color: palette.text.primary
                 }}
               >
-                {user?.email}
+                {user?.correo_electronico}
               </Text>
             </View>
             <View style={Modalstyles.buttonContainer}>

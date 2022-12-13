@@ -36,7 +36,8 @@ export const authReducer = (state, action) => {
         token_type: null,
         expires_in:    null,
         refresh_token: null,
-        user: null
+        user: null,
+        access_status: 'PDTE'
       }
     case "setToken": 
       return {
@@ -44,6 +45,11 @@ export const authReducer = (state, action) => {
         messages: '',
         status: 'authenticated',
         access_token: action.payload.access_token,
+      }
+    case "setStatus": 
+      return {
+        ...state,
+        access_status: action.payload.estado_acceso,
       }
     default:
       return state;

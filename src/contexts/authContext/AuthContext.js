@@ -11,7 +11,8 @@ const authInitialState = {
   token_type: null,
   expires_in: null,
   refresh_token: null,
-  data: null
+  data: null,
+  access_status: 'PDTE'
 }
 
 export const AuthContext = createContext();
@@ -43,7 +44,8 @@ export const AuthProvider = ({children}) => {
     try {
       const resp = await api.post('/users/token', {
         username,
-        password
+        password,
+        movil: true
       });
       dispatch({
         type: "signIn", 
@@ -97,12 +99,22 @@ export const AuthProvider = ({children}) => {
     }
   }
 
+  const getStatus = async (usuario) => {
+    try {
+      const resp = await api.get('/solicitudes-acceso-consulta/'+usuario);
+      dispatch({type: "setStatus", payload: resp.data});
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  }
+
   return (
     <AuthContext.Provider value={{
       ...state,
       signIn,
       logout,
       removeError,
+      getStatus
     }}>
       {children}
     </AuthContext.Provider>
