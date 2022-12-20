@@ -1,6 +1,6 @@
 const env = {
   // baseURL: 'https://api-inventario2.seals.tech/api',
-  baseURL: 'https://e27e-2800-e2-380-8bb-4844-9ed7-d7f2-5cae.ngrok.io/api',
+  baseURL: 'https://7528-2800-e2-9e80-1270-b4fe-54e0-1e4b-3d81.ngrok.io/api',
   idAppMovil: 12
 }
 
