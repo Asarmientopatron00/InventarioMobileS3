@@ -25,7 +25,7 @@ const Hello = () => {
         </Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-            style={{...styles.button, backgroundColor: 'green'}}
+            style={{...styles.button, backgroundColor: palette.primary.main}}
             onPress={() => getStatus(user.id)}
           >
             <Text style={styles.textStyle}>CONSULTAR PERMISO</Text>

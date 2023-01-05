@@ -200,7 +200,7 @@ const Receive = () => {
             <>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity
-                  style={{...styles.button, backgroundColor: 'green'}}
+                  style={{...styles.button, backgroundColor: palette.primary.main}}
                   onPress={onReadAll}
                 >
                   <Text style={styles.textStyle}>LEER TODOS</Text>

@@ -22,7 +22,7 @@ const ReadList = (props) => {
         <Text style={{color: palette.text.primary, fontSize: 16}}>Items Leidos: {read.length}</Text>
         {read.length > 0 && read.length === count && 
           <TouchableOpacity
-            style={{...styles.button, backgroundColor: 'green'}}
+            style={{...styles.button, backgroundColor: palette.primary.main}}
             onPress={onReceive}
           >
             <Text style={styles.textStyle}>RECIBIR</Text>
